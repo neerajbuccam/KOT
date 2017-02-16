@@ -1,0 +1,19 @@
+{
+  "name": "Magzika",
+  "version": "1.0.0",
+  "description": "Kitchen Manager",
+  "main": "server.js",
+  "scripts": {
+  },
+  "author": "Neeraj Buccam",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.1",
+    "mongojs": "^2.4.0",
+      
+    "concurrently": "^3.1.0",
+    "typescript": "~2.0.10"
+  }
+}

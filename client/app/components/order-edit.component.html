@@ -1,0 +1,142 @@
+<sidebar [page]="'orders'"></sidebar>
+
+<section class="main-content" (click)="removeBoxFocus()">
+    <div class="order-box row col-sm-12">
+        <div id="msg" class="col-sm-12 msg" *ngIf="msg">{{msg}}</div>
+        <form class="create-order-box row" (change)="formDirty()">
+            <blockquote class="form-group col-sm-6 left center" *ngIf="editItem.dateCreated">
+                Order Placed: {{editItem.dateCreated.date}}/{{editItem.dateCreated.month}}/{{editItem.dateCreated.year}} {{editItem.dateCreated.hour}}:{{editItem.dateCreated.min}}:{{editItem.dateCreated.sec}}
+            </blockquote>
+            <blockquote class="form-group col-sm-6 right center" *ngIf="editItem.dateClosed?.date">
+                Table Cleared: {{editItem.dateClosed.date}}/{{editItem.dateClosed.month}}/{{editItem.dateClosed.year}} {{editItem.dateClosed.hour}}:{{editItem.dateClosed.min}}:{{editItem.dateClosed.sec}}
+            </blockquote>
+            <div class="form-group col-sm-7">
+                <label for="table_name" class="col-sm-4 col-form-label">Table: {{editItem.table}}</label>
+                <input type="hidden" id="table_name" value="4">
+                <label for="table_title" class="col-sm-1 col-form-label">Title:</label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" id="table_title" name="table_title" [(ngModel)]="editItem.tableTitle" placeholder="Title for this Table" [disabled]="editItem.closeStatus">
+                </div>
+            </div>
+            <div class="form-group col-sm-5 textRight">
+                <button type="button" class="btn btn-danger" (click)="deleteOrder()" [disabled]="editItem.closeStatus"><i class="fa fa-trash-o fa-lg"></i> Delete Order</button>
+            </div>
+            <div class="form-group row col-sm-9">
+                <table id="table-items" class="table form-inline table-sm">
+                    <thead>
+                        <tr>
+                          <th>Item</th>
+                          <th>Quantity</th>
+                          <th>Unit Price (<span class="fa fa-inr"></span>)</th>
+                          <th>Total (<span class="fa fa-inr"></span>)</th>
+                          <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of editItem.orderItems; let i = index;">
+                          <td>
+                              <input type="text" class="form-control item_name" name="item_name{{i+1}}" [(ngModel)]="order.itemName" placeholder="Item from Menu" (keyup)="searchMenuItem(i)" [disabled]="editItem.closeStatus">
+                              <br/>
+                              <div class="searchMenuBox" [class.boxShow]="order.boxFocus">
+                                <div class="searchedMenuItems" *ngFor="let item of menuItems; let j = index;" (click)="selectMenu(i,j)">
+                                    <div class="left">{{item.name}}</div> <div class="right" *ngIf="item.prepareTime"> ~ {{item.prepareTime}} min</div>
+                                </div>
+                              </div>
+                          </td>
+                          <td>
+                              <button class="fa fa-minus-circle fa-lg" (click)="decQty(i)" [disabled]="editItem.closeStatus"></button>&nbsp;&nbsp;
+                              <input type="number" class="form-control item_qty" min="1" name="item_qty{{i+1}}" [(ngModel)]="order.qty" (change)="calcTotals()" [disabled]="editItem.closeStatus">&nbsp;&nbsp;
+                              <button class="fa fa-plus-circle fa-lg" (click)="incQty(i)" [disabled]="editItem.closeStatus"></button>
+                          </td>
+                          <td>{{order.unitPrice}}</td>
+                          <td>{{order.total}}</td>
+                          <td><button class="btn btn-danger fa fa-trash-o" (click)="deleteItem(i)" [disabled]="editItem.closeStatus"></button></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td>Grand Total:</td>
+                            <td colspan="2"><span class="fa fa-inr"></span> {{editItem.grandTotal}}</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="form-group col-sm-3">
+                <table id="tender-table" class="table form-inline table-sm">
+                    <thead>
+                        <tr>
+                            <th>Cash Tendered:</th>
+                            <th class="input-group">
+                                <span class="input-group-addon" id="btnGroupAddon"><i class="fa fa-inr"></i></span>
+                                <input type="number" class="form-control item_qty" min="0" name="cashTendered{{i+1}}" aria-describedby="btnGroupAddon" [(ngModel)]="editItem.cashTendered" (change)="calcTotals()" (keyup)="calcTotals()" (focusout)="saveAmtDue()" [disabled]="editItem.closeStatus">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Amount Due:</th>
+                            <th><i class="fa fa-inr"></i> {{editItem.amtDue}}</th>
+                        </tr>
+                    </thead>
+                </table>    
+            </div>
+            <div class="form-group col-sm-12">
+                <div class="left">
+                    <button type="button" class="btn btn-primary" (click)="addRow()" [disabled]="editItem.closeStatus"><i class="fa fa-plus"></i></button>
+                </div>
+                <div class="right">
+                    <button type="button" class="btn btn-danger" (click)="closeOrder()" [disabled]="editItem.closeStatus"><i class="fa fa-book fa-lg"></i> Clear Table</button>
+                    <button type="button" class="btn btn-default" (click)="PrintBill()" (mousedown)="getTimeNow()"><i class="fa fa-print fa-lg"></i> Print</button>
+                    <button type="button" class="btn btn-success" id="saveOrder" (click)="saveOrder()" disabled [disabled]="editItem.closeStatus"><i class="fa fa-save fa-lg"></i> Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+	<div id="printDiv" style="display: none;">
+		<div id="printContainer" class="center">
+			<div class="logo">Magzika</div>
+			<div class="logo-tagline">Bar & Restaurant</div>
+			<div class="left">Table: {{editItem.table}}</div>
+			<div class="right">{{dateNow}} {{timeNow}}</div>
+			<table class="table form-inline table-sm">
+				<thead>
+					<tr>
+					  <th>Item</th>
+					  <th>Qty</th>
+					  <th>Price (<span class="fa fa-inr"></span>)</th>
+					  <th>Total (<span class="fa fa-inr"></span>)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let order of editItem.orderItems; let i = index;">
+					  <td>{{order.itemName}}</td>
+					  <td>{{order.qty}}</td>
+					  <td>{{order.unitPrice}}</td>
+					  <td>{{order.total}}</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td></td>
+						<td colspan="2">Grand Total:</td>
+						<td><span class="fa fa-inr"></span> {{editItem.grandTotal}}</td>
+					</tr>
+				</tfoot>
+			</table>
+			<table class="col-sm-12 right">
+				<tr>
+					<td>Amt Tendered:</td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					<td><span class="fa fa-inr"></span> {{editItem.cashTendered}}</td>
+				</tr>
+				<tr>
+					<td>Amt Due:</td>
+					<td>&nbsp;&nbsp;&nbsp;</td>
+					<td><span class="fa fa-inr"></span> {{editItem.amtDue}}</td>
+				</tr>
+			</table>
+			<br/><br/>
+			<div class="col-sm-12 center footer"><b>Thank You<br/>Visit Again!</b></div>
+		</div>
+	</div>
+</section>

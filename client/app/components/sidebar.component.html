@@ -1,0 +1,40 @@
+<aside class="nav-side-menu">
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+    <div class="menu-list">
+        <ul id="menu-content" class="menu-content collapse out" *ngIf="page=='orders' || page=='reports'">
+            <li routerLink="/order-create" id="order_newOrder">
+              <a><i class="fa fa-plus-square-o fa-2x"></i> New Order</a>
+            </li>
+            
+            <li routerLink="/order-cleared" id="order_clearedTables">
+              <a><i class="fa fa-book fa-2x"></i> Cleared Tables</a>
+            </li>
+            
+            <li routerLink="/reports" id="reports">
+              <a><i class="fa fa-line-chart fa-2x"></i> Reports</a>
+            </li>
+
+            <!--<li  data-toggle="collapse" data-target="#products" class="collapsed">
+              <a href="#"><i class="fa fa-gift fa-2x"></i> UI Elements <span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="products">
+                <li class="active"><a href="#">CSS3 Animation</a></li>
+                <li><a href="#">General</a></li>
+                <li><a href="#">Buttons</a></li>
+            </ul>
+
+            <li>
+              <a href="#">
+                <i class="fa fa-user fa-lg"></i> Profile
+              </a>
+            </li>-->
+        </ul>
+        
+        <ul id="menu-content" class="menu-content collapse out" *ngIf="page=='menu'">
+            <li routerLink="/menu-create" id="menu_addMenuItems">
+              <a><i class="fa fa-plus-square-o fa-2x"></i> Add Menu Items</a>
+            </li>
+        </ul>
+     </div>
+</aside>

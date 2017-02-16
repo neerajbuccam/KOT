@@ -1,0 +1,46 @@
+<sidebar [page]="'orders'"></sidebar>
+
+<section class="main-content">
+    <div class="alert alert-info form-inline"><h4><i class="fa fa-filter"></i> Filter </h4>
+        <label for="table">Table:</label> 
+        <select class="form-control" id="table" [(ngModel)]="filter.table">
+          <option></option>
+          <option *ngFor="let table of tables">{{table}}</option>
+        </select>
+        &nbsp;&nbsp;&nbsp;
+        <label for="tableTitle">Title: </label>
+        <input type="text" class="form-control" id="tableTitle" [(ngModel)]="filter.tableTitle" placeholder="Search by Title">
+        &nbsp;&nbsp;&nbsp;
+        <label for="date">Date: </label>
+        <input class="form-control" type="date" id="date" [(ngModel)]="searchDate">
+        &nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-primary" (click)="search()">Search</button>
+    </div>
+	
+    <div class="order-box row col-sm-12">
+        <form class="create-order-box row">
+            <table id="table-menu" class="table form-inline table-sm">
+                <thead>
+                    <tr>
+                      <th></th>
+                      <th>#</th>
+                      <th>Table</th>
+                      <th>Title</th>
+                      <th>Grand Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of orders; let i = index;">
+                      <td>
+                          <button (click)="editOrder(order._id)" type="button" class="btn btn-xs btn-primary"><i class="fa fa-pencil-square-o"></i></button>
+                      </td>
+                      <td>{{i+1}}</td>
+                      <td>{{order.table}}</td>
+                      <td>{{order.tableTitle}}</td>
+                      <td><i class="fa fa-inr"></i> {{order.grandTotal}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</section>
