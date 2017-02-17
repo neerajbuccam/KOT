@@ -36,6 +36,7 @@
                       <th>Table</th>
                       <th>Title</th>
                       <th>Total</th>
+                      <th>Amt Due</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +48,7 @@
                       <td>{{order.table}}</td>
                       <td>{{order.tableTitle}}</td>
                       <td><i class="fa fa-inr"></i> {{order.grandTotal}}</td>
+                      <td><span *ngIf="order.amtDue < 0"><i class="fa fa-inr"></i> {{order.amtDue}}</span></td>
                     </tr>
                 </tbody>
 				<tfoot>
@@ -54,6 +56,7 @@
 						<td colspan="3"></td>
 						<td>Grand Total: </td>
 						<td><i class="fa fa-inr"></i> {{sumTotal}}</td>
+						<td><i class="fa fa-inr"></i> {{DueTotal}}</td>
 					</tr>
 				</tfoot>
             </table>

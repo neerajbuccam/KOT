@@ -31,13 +31,15 @@ export class OrderComponent  {
         var datetime = {};
         var d = new Date();
         
-        datetime.year = d.getFullYear();
-        datetime.month = d.getMonth() + 1;
-        datetime.date = d.getDate();
-        datetime.hour = d.getHours();
-        datetime.min = d.getMinutes();
-        datetime.sec = d.getSeconds();
-        
+        datetime = {
+			year: d.getFullYear(),
+        	month: d.getMonth() + 1,
+        	date: d.getDate(),
+        	hour: d.getHours(),
+        	min: d.getMinutes(),
+        	sec: d.getSeconds()
+        };
+		
         return datetime;
     }
     
@@ -74,7 +76,8 @@ export class OrderComponent  {
     }
     
     incQty(i, j){
-        var order = this.orders[i].orderItems[j];
+        var order = 
+		this.orders[i].orderItems[j];
         
         order.qty++;
         order.total = order.unitPrice * order.qty;
@@ -105,6 +108,8 @@ interface order{
     grandTotal: number;
     cashTendered: number;
     closeStatus: boolean;
+    dateCreated: date;
+    dateClosed: date;
 }
 
 interface orderItems{

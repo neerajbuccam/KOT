@@ -1,9 +1,10 @@
 {
-  "name": "Magzika",
+  "name": "magzika",
   "version": "1.0.0",
   "description": "Kitchen Manager",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js"
   },
   "author": "Neeraj Buccam",
   "license": "ISC",
@@ -12,8 +13,16 @@
     "ejs": "^2.5.5",
     "express": "^4.14.1",
     "mongojs": "^2.4.0",
-      
     "concurrently": "^3.1.0",
     "typescript": "~2.0.10"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neerajbuccam/KOT.git"
+  },
+  "bugs": {
+    "url": "https://github.com/neerajbuccam/KOT/issues"
+  },
+  "homepage": "https://github.com/neerajbuccam/KOT#readme"
 }

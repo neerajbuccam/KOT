@@ -11,11 +11,12 @@ import { Router } from '@angular/router';
 })
 
 export class ReportsComponent {
-    orders: order[];
+    orders: any;
     tables: string[];
     filter: search;
 	searchDate: string;
 	sumTotal: number;
+	DueTotal: number;
 	chartDate: date;
 	monthlySalesChartOptions: Object;
 	dailySalesChartOptions: Object;
@@ -32,7 +33,7 @@ export class ReportsComponent {
         
         this.orderService.getOrders().subscribe( order => {
 			this.orders = Array.from(order);
-			this.getSumTotal();
+			this.getTotal();
 		});
 		
 		this.getMonthlySales();		
@@ -182,15 +183,19 @@ export class ReportsComponent {
 		this.orderService.filterOrders(this.filter).subscribe( orders => {
 			this.getDailySales();
 			this.orders = Array.from(orders);
-			this.getSumTotal();
+			this.getTotal();
 		});
 	}
 	
-	getSumTotal(){
+	getTotal(){
 		this.sumTotal = 0;
+		this.DueTotal = 0;
 		
 		for(var k=0; k<this.orders.length; k++){
 			this.sumTotal += this.orders[k].grandTotal;
+			
+			if((this.orders[k].cashTendered - this.orders[k].grandTotal) < 0)
+				this.DueTotal += this.orders[k].cashTendered - this.orders[k].grandTotal;
 		}
 	}
 }

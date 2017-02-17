@@ -27,6 +27,7 @@
                       <th>Table</th>
                       <th>Title</th>
                       <th>Grand Total</th>
+                      <th>Amt Due</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,7 @@
                       <td>{{order.table}}</td>
                       <td>{{order.tableTitle}}</td>
                       <td><i class="fa fa-inr"></i> {{order.grandTotal}}</td>
+                      <td><span *ngIf="order.amtDue < 0"><i class="fa fa-inr"></i> {{order.amtDue}}</span></td>
                     </tr>
                 </tbody>
             </table>

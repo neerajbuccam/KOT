@@ -188,12 +188,14 @@ export class CreateOrderComponent {
         var datetime = {};
         var d = new Date();
         
-        datetime.year = d.getFullYear();
-        datetime.month = d.getMonth() + 1;
-        datetime.date = d.getDate();
-        datetime.hour = d.getHours();
-        datetime.min = d.getMinutes();
-        datetime.sec = d.getSeconds();
+        datetime = {
+			year: d.getFullYear(),
+        	month: d.getMonth() + 1,
+        	date: d.getDate(),
+        	hour: d.getHours(),
+        	min: d.getMinutes(),
+        	sec: d.getSeconds()
+		};
         
         return datetime;
     }
