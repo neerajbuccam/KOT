@@ -65,12 +65,9 @@ export class EditOrderComponent  {
         this.formDirty();
     }
     
-    deleteItem(index){
-        for(var i=0; i<this.editItem.orderItems.length; i++){
-            if(i == index){
-                this.editItem.orderItems.splice(i, 1);
-            }
-        }
+    deleteItem(item){
+        const index = this.editItem.orderItems.indexOf(item);
+        this.editItem.orderItems.splice(index, 1);
         this.calcTotals();
     }
         
@@ -84,9 +81,9 @@ export class EditOrderComponent  {
         });
     }
     
-    searchMenuItem(i) {
-        if(this.editItem.orderItems[i].itemName != ''){
-           this.menuService.searchMenuItem(this.editItem.orderItems[i].itemName).subscribe(menu => {
+    searchMenuItem(i, itemName) {
+        if(itemName.value != ''){
+           this.menuService.searchMenuItem(itemName.value).subscribe(menu => {
                 this.menuItems = menu;
                 this.editItem.orderItems[i].boxFocus = true;
            });

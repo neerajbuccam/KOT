@@ -35,7 +35,7 @@
                     <tbody>
                         <tr *ngFor="let order of editItem.orderItems; let i = index;">
                           <td>
-                              <input type="text" class="form-control item_name" name="item_name{{i+1}}" [(ngModel)]="order.itemName" placeholder="Item from Menu" (keyup)="searchMenuItem(i)" [disabled]="editItem.closeStatus">
+                              <input #itemName type="text" class="form-control item_name" name="item_name{{i}}" value={{order.itemName}} placeholder="Item from Menu" (keyup)="searchMenuItem(i, itemName)" [disabled]="editItem.closeStatus">
                               <br/>
                               <div class="searchMenuBox" [class.boxShow]="order.boxFocus">
                                 <div class="searchedMenuItems" *ngFor="let item of menuItems; let j = index;" (click)="selectMenu(i,j)">
@@ -45,12 +45,12 @@
                           </td>
                           <td>
                               <button class="fa fa-minus-circle fa-lg" (click)="decQty(i)" [disabled]="editItem.closeStatus"></button>&nbsp;&nbsp;
-                              <input type="number" class="form-control item_qty" min="1" name="item_qty{{i+1}}" [(ngModel)]="order.qty" (change)="calcTotals()" [disabled]="editItem.closeStatus">&nbsp;&nbsp;
+                              <input #itemQty type="number" class="form-control item_qty" min="1" name="item_qty{{i}}" value={{order.qty}} (change)="calcTotals()" [disabled]="editItem.closeStatus">&nbsp;&nbsp;
                               <button class="fa fa-plus-circle fa-lg" (click)="incQty(i)" [disabled]="editItem.closeStatus"></button>
                           </td>
                           <td>{{order.unitPrice}}</td>
                           <td>{{order.total}}</td>
-                          <td><button class="btn btn-danger fa fa-trash-o" (click)="deleteItem(i)" [disabled]="editItem.closeStatus"></button></td>
+                          <td><button class="btn btn-danger fa fa-trash-o" (click)="deleteItem(order)" [disabled]="editItem.closeStatus"></button></td>
                         </tr>
                     </tbody>
                     <tfoot>
@@ -70,7 +70,7 @@
                             <th>Cash Tendered:</th>
                             <th class="input-group">
                                 <span class="input-group-addon" id="btnGroupAddon"><i class="fa fa-inr"></i></span>
-                                <input type="number" class="form-control item_qty" min="0" name="cashTendered{{i+1}}" aria-describedby="btnGroupAddon" [(ngModel)]="editItem.cashTendered" (change)="calcTotals()" (keyup)="calcTotals()" (focusout)="saveAmtDue()" [disabled]="editItem.closeStatus">
+                                <input type="number" class="form-control item_qty" min="0" name="cashTendered" aria-describedby="btnGroupAddon" [(ngModel)]="editItem.cashTendered" (change)="calcTotals()" (keyup)="calcTotals()" (focusout)="saveAmtDue()" [disabled]="editItem.closeStatus">
                             </th>
                         </tr>
                         <tr>
@@ -123,19 +123,6 @@
 					</tr>
 				</tfoot>
 			</table>
-			<!--<table class="col-sm-12 right">
-				<tr>
-					<td>Amt Tendered:</td>
-					<td>&nbsp;&nbsp;&nbsp;</td>
-					<td><span class="fa fa-inr"></span> {{editItem.cashTendered}}</td>
-				</tr>
-				<tr>
-					<td>Amt Due:</td>
-					<td>&nbsp;&nbsp;&nbsp;</td>
-					<td><span class="fa fa-inr"></span> {{editItem.amtDue}}</td>
-				</tr>
-			</table>
-			<br/><br/>-->
 			<div class="col-sm-12 center footer"><b>Thank You<br/>Visit Again!</b></div>
 		</div>
 	</div>

@@ -30,7 +30,7 @@
                 <tbody>
                     <tr *ngFor="let item of order?.orderItems; let i = index;">
                       <td>
-                          <input type="text" class="form-control item_name" autocomplete="off" id="item_name" name="itemName{{i+1}}" [(ngModel)]="item.itemName" placeholder="Item from Menu" (keyup)="searchMenuItem(i)">
+                          <input #itemName type="text" class="form-control item_name" autocomplete="off" id="item_name" name="itemName{{i+1}}" placeholder="Item from Menu" (keyup)="searchMenuItem(i, itemName)" value={{item.itemName}}>
                           <br/>
                           <div class="searchMenuBox" [class.boxShow]="item.boxFocus">
                             <div class="searchedMenuItems" *ngFor="let menu of menuItems; let j = index;" (click)="selectMenu(i,j)">
@@ -40,7 +40,7 @@
                       </td>
                       <td>
                           <button class="fa fa-minus-circle fa-lg" (click)="decQty(i)"></button>&nbsp;&nbsp;
-                          <input type="number" class="form-control item_qty" min="1" id="item_qty" name="qty{{i+1}}" [(ngModel)]="item.qty" (change)="calcTotals()">&nbsp;&nbsp;
+                          <input #itemQty type="number" class="form-control item_qty" min="1" id="item_qty" name="qty{{i+1}}" (change)="calcTotals()" value={{item.qty}}>&nbsp;&nbsp;
                           <button class="fa fa-plus-circle fa-lg" (click)="incQty(i)"></button>
                       </td>
                       <td>{{item.unitPrice}}</td>

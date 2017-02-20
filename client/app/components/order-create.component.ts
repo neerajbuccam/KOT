@@ -92,9 +92,9 @@ export class CreateOrderComponent {
         });
     }
     
-    searchMenuItem(i) {
-        if(this.order.orderItems[i].itemName != ''){
-           this.menuService.searchMenuItem(this.order.orderItems[i].itemName).subscribe(menu => {
+    searchMenuItem(i, itemName) {
+        if(itemName.value != ''){
+           this.menuService.searchMenuItem(itemName.value).subscribe(menu => {
                 this.menuItems = menu;
                 this.order.orderItems[i].boxFocus = true;
            });
