@@ -32,6 +32,7 @@ body {
 	margin:0;
 	padding:0;
     font-family: verdana;
+    font-size: 12px;
 }
 
 .center{
@@ -114,12 +115,11 @@ header nav a.selected {
 
 .main-content{
     height: 100%;
-    margin: 10em 1em 2em 20.3em;
+    margin: 10.5em 1em 2em 23.5em;
 }
 
 .order-box{
     box-shadow: 20px 20px 60px -30px #5d3d32;
-    padding: 0 5px;
     display: inline-block;
 }
 
@@ -196,7 +196,7 @@ header nav a.selected {
 
 #table-items td button:not(.btn-primary):not(.btn-danger), td button:not(.btn-primary):not(.btn-danger){
     color: #337ab7;
-    font-size: 25px;
+    font-size: 22px;
     cursor: pointer;
     border: none;
     background: none;

@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
             <div class="logo">Magzika</div>
             <div class="logo-tagline">Kitchen Manager</div>
         </div>
-        <nav>{{url}}
+        <nav>
             <a id="orders" routerLink="/" [class.active]="ordersActive==true">Orders</a>
             <a id="menu" routerLink="/menu" [class.active]="menuActive==true">Menu</a>
         </nav>
