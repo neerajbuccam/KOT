@@ -284,7 +284,6 @@ h1 {
 }
 
 #printContainer{
-	width: 46mm;
 	margin-top: 25px;
 	overflow: hidden;
 }
@@ -311,12 +310,12 @@ h1 {
 	margin-bottom: 0;
 }
 
-#printContainer td:nth-child(n+3), #printContainer th:nth-child(n+3) {
-    text-align: right;
+#printContainer tfoot td{
+    font-size: 12px;
 }
 
-#printContainer td:nth-child(2) {
-    text-align: center;
+#printContainer td:nth-child(n+3), #printContainer th:nth-child(n+3) {
+    text-align: right;
 }
 
 #printContainer .right td{
