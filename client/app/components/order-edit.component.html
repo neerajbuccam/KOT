@@ -70,7 +70,7 @@
                             <th>Cash Tendered:</th>
                             <th class="input-group">
                                 <span class="input-group-addon" id="btnGroupAddon"><i class="fa fa-inr"></i></span>
-                                <input type="number" class="form-control item_qty" min="0" name="cashTendered" aria-describedby="btnGroupAddon" [(ngModel)]="editItem.cashTendered" (change)="calcTotals()" (keyup)="calcTotals()" (focusout)="saveAmtDue()" [disabled]="editItem.closeStatus">
+                                <input type="number" class="form-control item_qty" min="0" name="cashTendered" aria-describedby="btnGroupAddon" [(ngModel)]="editItem.cashTendered" (change)="calcTotals()" (keyup)="calcTotals()" (focusout)="saveAmtDue()">
                             </th>
                         </tr>
                         <tr>

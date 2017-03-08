@@ -28,5 +28,5 @@ app.use('/menuApi', menuAPI);
 app.use('/', index);
 
 app.listen(port, function(){
-   console.log("Server started on port "+port); 
+   console.log("Server started at address: http://localhost:"+port); 
 });
