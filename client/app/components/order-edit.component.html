@@ -15,7 +15,12 @@
                 <input type="hidden" id="table_name" value="4">
                 <label for="table_title" class="col-sm-1 col-form-label">Title:</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control" id="table_title" name="table_title" [(ngModel)]="editItem.tableTitle" placeholder="Title for this Table" [disabled]="editItem.closeStatus">
+                    <input #tableTitle type="text" class="form-control" id="table_title" name="table_title" [(ngModel)]="editItem.tableTitle" placeholder="Title for this Table" (keyup)="searchTitles(tableTitle)" [disabled]="editItem.closeStatus">
+                    <div class="searchMenuBox" [class.boxShow]="titleBoxFocus">
+                      <div class="searchedMenuItems" *ngFor="let item of orderTitles; let i = index;" (click)="selectTitle(i)">
+                          <div class="left">{{item}}</div>
+                      </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group col-sm-5 textRight">
@@ -70,7 +75,7 @@
                             <th>Cash Tendered:</th>
                             <th class="input-group">
                                 <span class="input-group-addon" id="btnGroupAddon"><i class="fa fa-inr"></i></span>
-                                <input type="number" class="form-control item_qty" min="0" name="cashTendered" aria-describedby="btnGroupAddon" [(ngModel)]="editItem.cashTendered" (change)="calcTotals()" (keyup)="calcTotals()" (focusout)="saveAmtDue()">
+                                <input type="number" class="form-control item_qty" min="0" name="cashTendered" aria-describedby="btnGroupAddon" [(ngModel)]="editItem.cashTendered" (change)="calcTotals()" (keyup)="calcTotals()" (focusout)="saveAmtDue()" [disabled]="editItem.closeStatus">
                             </th>
                         </tr>
                         <tr>

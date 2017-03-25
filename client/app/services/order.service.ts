@@ -13,6 +13,11 @@ export class OrderService{
         return this.http.get('http://'+this.host+':'+this.port+'/orderApi/order')
             .map(res => res.json());
     }
+
+    searchOrderTitles(word){
+        return this.http.get('http://'+this.host+':'+this.port+'/orderApi/orderTitleSearch/'+word)
+            .map(res => res.json());
+    }
     
     getActiveOrders(){
         return this.http.get('http://'+this.host+':'+this.port+'/orderApi/orderActive')

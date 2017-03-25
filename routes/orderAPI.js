@@ -13,6 +13,22 @@ router.get('/order', function(req, res, next){
     });
 });
 
+//Get Order Titles
+router.get('/orderTitleSearch/:word', function(req, res, next){
+    var orderTitles = [];
+
+    db.orders.aggregate([{"$unwind": "$tableTitle"}, {"$match": {"tableTitle": { $regex: '[ ]?'+req.params.word, $options: "i" }} }, {"$group": {"_id": "$tableTitle"} }], function(err, orderItems){
+        if(err){
+            res.send(err);
+        }
+        orderItems.forEach(function(data){
+            orderTitles.push(data._id);
+        });
+
+        res.json(orderTitles);
+    });
+});
+
 //Get Active Orders
 router.get('/orderActive', function(req, res, next){
     db.orders.find({"closeStatus": false}).sort({dateCreated: -1}, function(err, orderItems){
@@ -96,8 +112,8 @@ router.post('/order', function(req, res, next){
     var order = req.body;
     var validErr;
     
-    if(order.table == '' || order.tableTitle == ''){
-        validErr = { msg: "Enter Table information for this order"};
+    if(order.table == ''){
+        validErr = { msg: "Select Table for this order"};
         
         res.status = (400);
         res.json(validErr);
@@ -131,7 +147,7 @@ router.put('/order/:id', function(req, res, next){
     var updOrder = {};
     var validErr = [];
     
-    if(order.table == '' || order.tableTitle == '' || order.orderItems.length < 1){
+    if(order.table == '' || order.orderItems.length < 1){
         res.status = (400);
         res.json({
             "msg": "Incomplete Data for this order"

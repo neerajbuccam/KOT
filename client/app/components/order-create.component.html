@@ -14,7 +14,12 @@
               </div>
               <label for="table_title" class="col-sm-1 col-form-label">Title:</label>
               <div class="col-sm-7">
-                <input type="text" class="form-control" id="table_title" name="tableTitle" [(ngModel)]="order.tableTitle" placeholder="Title for this Table">
+                <input #tableTitle type="text" class="form-control" id="table_title" name="table_Title" [(ngModel)]="order.tableTitle" placeholder="Title for this Table" (keyup)="searchTitles(tableTitle)">
+                <div class="searchMenuBox" [class.boxShow]="titleBoxFocus">
+                  <div class="searchedMenuItems" *ngFor="let item of orderTitles; let i = index;" (click)="selectTitle(i)">
+                      <div class="left">{{item}}</div>
+                  </div>
+                </div>
               </div>
             </div>
             <table id="table-items" class="table form-inline table-sm">

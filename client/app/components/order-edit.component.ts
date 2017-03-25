@@ -14,6 +14,8 @@ import 'rxjs/add/operator/switchMap';
 export class EditOrderComponent  {
     msg: string;
     editItem: any = {};
+    orderTitles: String[];
+    titleBoxFocus: boolean;
     menuItems: menu[];
     dateNow: any;
 	timeNow: any;
@@ -81,6 +83,23 @@ export class EditOrderComponent  {
         });
     }
     
+    searchTitles(tableTitle){
+        if(tableTitle.value != ''){
+           this.orderService.searchOrderTitles(tableTitle.value).subscribe(titles => {
+                this.orderTitles = titles;
+                this.titleBoxFocus = true;
+           });
+        }
+        else{
+            this.orderTitles = [];
+            this.titleBoxFocus = false;
+        }
+    }
+
+    selectTitle(i){
+        this.editItem.tableTitle = this.orderTitles[i];
+    }
+
     searchMenuItem(i, itemName) {
         if(itemName.value != ''){
            this.menuService.searchMenuItem(itemName.value).subscribe(menu => {
@@ -119,6 +138,7 @@ export class EditOrderComponent  {
     }
     
     removeBoxFocus(){
+        this.titleBoxFocus = false;
         for(var i=0; i<this.editItem.orderItems.length; i++){
             this.editItem.orderItems[i].boxFocus = false;
         }

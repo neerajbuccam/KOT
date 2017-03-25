@@ -16,6 +16,8 @@ export class CreateOrderComponent {
     menuItems: menu[];
     msg: string;
     tables: string[];
+    orderTitles: String[];
+    titleBoxFocus: boolean;
     
     constructor(private orderService: OrderService, private menuService: MenuService, private router: Router){
         this.resetForm();
@@ -92,6 +94,23 @@ export class CreateOrderComponent {
         });
     }
     
+    searchTitles(tableTitle){
+        if(tableTitle.value != ''){
+           this.orderService.searchOrderTitles(tableTitle.value).subscribe(titles => {
+                this.orderTitles = titles;
+                this.titleBoxFocus = true;
+           });
+        }
+        else{
+            this.orderTitles = [];
+            this.titleBoxFocus = false;
+        }
+    }
+
+    selectTitle(i){
+        this.order.tableTitle = this.orderTitles[i];
+    }
+    
     searchMenuItem(i, itemName) {
         if(itemName.value != ''){
            this.menuService.searchMenuItem(itemName.value).subscribe(menu => {
@@ -130,6 +149,7 @@ export class CreateOrderComponent {
     }
     
     removeBoxFocus(){
+        this.titleBoxFocus = false;
         for(var i=0; i<this.order.orderItems.length; i++){
             this.order.orderItems[i].boxFocus = false;
         }
