@@ -1,6 +1,6 @@
 <sidebar [page]="'orders'"></sidebar>
 
-<section class="main-content" (click)="removeBoxFocus()">
+<section class="main-content" (click)="removeBoxFocus()" (keyup.enter)="addRow()">
     <div class="order-box row col-sm-10">
         <div id="msg" class="col-sm-12 msg" *ngIf="msg">{{msg}}</div>
         <form class="create-order-box row" (change)="formDirty()">
@@ -35,10 +35,10 @@
                 <tbody>
                     <tr *ngFor="let item of order?.orderItems; let i = index;">
                       <td>
-                          <input #itemName type="text" class="form-control item_name" autocomplete="off" id="item_name" name="itemName{{i+1}}" placeholder="Item from Menu" (keyup)="searchMenuItem(i, itemName)" value={{item.itemName}}>
+                          <input #itemName type="text" class="form-control item_name" autocomplete="off" id="itemName{{i+1}}" name="itemName{{i+1}}" placeholder="Item from Menu" (keyup)="searchMenuItem(i, itemName)" value={{item.itemName}}>
                           <br/>
                           <div class="searchMenuBox" [class.boxShow]="item.boxFocus">
-                            <div class="searchedMenuItems" *ngFor="let menu of menuItems; let j = index;" (click)="selectMenu(i,j)">
+                            <div class="searchedMenuItems" *ngFor="let menu of menuItems; let j = index;" (click)="selectMenu(i,j, itemQty)">
                                 <div class="left">{{menu.name}}</div> <div class="right" *ngIf="menu.prepareTime"> ~ {{menu.prepareTime}} min</div>
                             </div>
                           </div>

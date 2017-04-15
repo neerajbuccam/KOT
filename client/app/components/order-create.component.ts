@@ -92,6 +92,8 @@ export class CreateOrderComponent {
             total: 0,
             boxFocus: false
         });
+
+        //$('#itemName'+this.order.orderItems.length).focus()
     }
     
     searchTitles(tableTitle){
@@ -124,7 +126,7 @@ export class CreateOrderComponent {
         }
     }
     
-    selectMenu(i, j){
+    selectMenu(i, j, itemQty){
 		var itemUnique = true;
 		for(var k=0; k<this.order.orderItems.length; k++){
 			if(this.order.orderItems[k].itemName == this.menuItems[j].name)
@@ -146,6 +148,7 @@ export class CreateOrderComponent {
 			this.calcTotals();
 			window.scrollTo(0,0);
 		}
+        itemQty.focus();
     }
     
     removeBoxFocus(){
