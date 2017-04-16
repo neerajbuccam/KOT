@@ -286,7 +286,7 @@ h1 {
 }
 
 #printContainer{
-	margin: 10px 2px 0px 2px;
+	margin: 10px 15px 0px 0px;
 	overflow: hidden;
 }
 
@@ -295,7 +295,7 @@ h1 {
 }
 
 #printContainer .logo-tagline{
-	font-size: 14pt;
+    font-size: 14pt;
     float: none;
 }
 
@@ -304,12 +304,12 @@ h1 {
 }
 
 #printContainer th, #printContainer td{
-	padding: 2px;
+    padding: 2px;
 }
 
 #printContainer, #printContainer table, #printContainer tfoot, #printContainer td{
-	font-size: 9px;
-	margin-bottom: 0;
+    font-size: 9px;
+    margin-bottom: 0;
 }
 
 #printContainer tfoot td{
